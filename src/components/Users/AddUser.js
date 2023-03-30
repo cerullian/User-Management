@@ -7,7 +7,6 @@ import styles from "./AddUser.module.css";
 const AddUser = (props) => {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
 
   const usernameChangeHandler = (event) => {
     setEnteredUsername(event.target.value);
@@ -19,20 +18,13 @@ const AddUser = (props) => {
 
   const addUserHandler = (event) => {
     event.preventDefault();
-
-    const userData = {
-      id: Math.random().toString(),
-      username: enteredUsername,
-      age: enteredAge,
-    };
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
-      setIsOpen(true);
       return;
     }
     if (+enteredAge < 1) {
       return;
     }
-    props.onAddUser(userData);
+    props.onAddUser(enteredUsername, enteredAge);
     setEnteredUsername("");
     setEnteredAge("");
   };
